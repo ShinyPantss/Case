@@ -10,8 +10,6 @@ interface TransactionStore {
   transactions: Transaction[];
   setTransactions: (transactions: Transaction[]) => void;
   addTransaction: (params: AddTransactionParams) => Promise<void>;
-  updateTransaction: (transaction: Transaction) => void;
-  deleteTransaction: (transaction: Transaction) => void;
 }
 
 interface AddTransactionParams {
@@ -56,16 +54,6 @@ const useTransactionStore = create<TransactionStore>((set, get) => ({
       set({ error: error.message, isLoading: false });
     }
   },
-  updateTransaction: (transaction: Transaction) =>
-    set((state) => ({
-      transactions: state.transactions.map((t) =>
-        t._id === transaction._id ? transaction : t
-      ),
-    })),
-  deleteTransaction: (transaction: Transaction) =>
-    set((state) => ({
-      transactions: state.transactions.filter((t) => t._id !== transaction._id),
-    })),
 }));
 
 export default useTransactionStore;
