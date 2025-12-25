@@ -1,33 +1,64 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Image } from "expo-image";
+import icons from "@/assets/icons/icons";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
+        tabBarStyle: {},
+        tabBarLabelStyle: {
+          fontSize: 14,
+          lineHeight: 20,
+          fontWeight: "semibold",
+        },
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "gray",
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Savings",
+
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.vector}
+              style={{ width: 24, height: 24 }}
+              contentFit="contain"
+              tintColor={color}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="progress"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Progress",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.progress}
+              style={{ width: 24, height: 24 }}
+              contentFit="contain"
+              tintColor={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={icons.settings}
+              style={{ width: 24, height: 24 }}
+              contentFit="contain"
+              tintColor={color}
+            />
+          ),
         }}
       />
     </Tabs>

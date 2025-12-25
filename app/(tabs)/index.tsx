@@ -1,98 +1,83 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import icons from "@/assets/icons/icons";
+import GoalCardComponent from "@/components/GoalCard";
+import useGoalStore, { Goal } from "@/store/useGoalStore";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Image } from "expo-image";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const { goals } = useGoalStore();
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
+    <SafeAreaView className="flex-1 px-5 bg-white relative">
+      <View className=" my-[10px] ">
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={icons.pig}
+          style={{ width: 40, height: 40 }}
+          contentFit="contain"
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <View className="  py-2">
+        <View className=" relative mt-[6px] border border-[#EEEFF2] rounded-xl p-4 flex-row  gap-4">
+          <Image
+            source={icons.hand_3d}
+            style={{ width: 72, height: 62 }}
+            contentFit="contain"
+          />
+          <View className="absolute right-2 top-2">
+            <Ionicons name="close" size={24} color="#D1D5DB" />
+          </View>
+          <View className="flex-1 gap-1">
+            <Text className="text-[16px] leading-[24px] font-semibold text-[#020617] tracking-[-0.176px] font-inter">
+              Learn How to Save
+            </Text>
+            <Text className="text-[14px] font-inter-regular text-[#9CA3AF] leading-[20px] tracking-[-0.084px] font-normal">
+              Use your existing accounts to start tradings
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      <View className=" py-7 flex-row justify-between items-center ">
+        <Text className="text-[24px] leading-[30px] font-bold text-[#020617] tracking-[-0.36px] font-inter">
+          My Savings
+        </Text>
+        <View className="flex-row items-center gap-2 border border-solid border-[#EEEFF2] rounded-[30px] px-[12px] py-[6px] ">
+          <TouchableOpacity
+            className="flex-row items-center gap-2"
+            onPress={() => {}}
+          >
+            <Text className="text-[16px] leading-[24px] font-semibold text-[#1F2937] tracking-[-0.176px] font-inter">
+              Sort
+            </Text>
+            <Image
+              source={icons.updownarrow}
+              style={{ width: 16, height: 16 }}
+              contentFit="contain"
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <FlatList
+        data={goals}
+        renderItem={({ item }: { item: Goal }) => (
+          <GoalCardComponent goal={item} />
+        )}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={{ gap: 16 }}
+      />
+      <View className="absolute bottom-6 right-5 items-center">
+        <TouchableOpacity className="bg-[#020617] rounded-full py-4 px-6 flex-row items-center justify-center gap-3">
+          <Text className="text-white text-center font-inter text-[16px] font-medium leading-[24px] tracking-[-0.176px]">
+            Add Goal
+          </Text>
+          <Image
+            source={icons.plus}
+            style={{ width: 20, height: 20, tintColor: "#fff" }}
+          />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
