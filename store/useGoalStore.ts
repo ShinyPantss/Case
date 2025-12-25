@@ -41,13 +41,18 @@ interface GoalStore {
   addGoal: (goal: Goal) => void;
   getGoalById: (id: string) => Goal | undefined;
   getGoals: () => Promise<void>;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 const useGoalStore = create<GoalStore>((set, get) => ({
   goals: [],
+  loading: false,
+  setLoading: (loading: boolean) => set({ loading }),
   setGoals: (goals: Goal[]) => set({ goals }),
   addGoal: (goal: Goal) => set((state) => ({ goals: [...state.goals, goal] })),
 
   getGoals: async () => {
+    set({ loading: true });
     try {
       const token = await useTokenStore.getState().getToken();
       if (!token) {
@@ -68,8 +73,11 @@ const useGoalStore = create<GoalStore>((set, get) => ({
 
       const data = await response.json();
       set({ goals: data.goals ?? [] });
+      set({ loading: false });
     } catch (error) {
       console.error("Failed to fetch goals:", error);
+    } finally {
+      set({ loading: false });
     }
   },
   getGoalById: (id: string) => {

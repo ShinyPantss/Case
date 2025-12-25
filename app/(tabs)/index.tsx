@@ -3,11 +3,18 @@ import GoalCardComponent from "@/components/GoalCard";
 import useGoalStore, { Goal } from "@/store/useGoalStore";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const { goals } = useGoalStore();
+  const { goals, loading } = useGoalStore();
+  if (loading) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <ActivityIndicator size="large" color="#020617" />
+      </View>
+    );
+  }
   return (
     <SafeAreaView className="flex-1 px-5 bg-white relative">
       <View className=" my-[10px] ">

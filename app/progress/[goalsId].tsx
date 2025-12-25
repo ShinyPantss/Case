@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import useGoalStore from "@/store/useGoalStore";
 import { router, useLocalSearchParams } from "expo-router";
@@ -7,7 +7,7 @@ import { Image, ImageBackground } from "expo-image";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import icons from "@/assets/icons/icons";
 import DetailProgress from "@/components/DetailProgress";
-import DetailActionButton from "@/components/DetailActionButton";
+
 import SavingsActivity from "@/components/SavingsActivity";
 import DetailDropDown from "@/components/DetailDropDown";
 import DetailActionTab from "@/components/DetailActionTab";

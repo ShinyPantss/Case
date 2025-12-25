@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import DetailActionButton from "./DetailActionButton";
 import icons from "@/assets/icons/icons";
