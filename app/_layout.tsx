@@ -64,7 +64,7 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    if (isHandshakeCompleted) {
+    if (hasToken.current && isHandshakeCompleted) {
       getGoals();
     }
   }, [isHandshakeCompleted, getGoals]);
