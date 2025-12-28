@@ -124,7 +124,6 @@ const AddSavings = () => {
           {note.length}/200
         </Text>
       </View>
-      {/* Submit Button */}
       <View className="w-full flex-1 justify-end pb-6">
         <TouchableOpacity
           className={`mt-6 bg-[#020617]  rounded-full items-center p-5 ${isLoading ? "opacity-50" : ""}`}

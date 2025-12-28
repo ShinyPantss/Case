@@ -55,6 +55,7 @@ const Withdrawal = () => {
           color="#4B5563"
           className="border p-1 border-solid border-[#E5E7EB] rounded-full"
           onPress={() => router.back()}
+
         />
       </View>
 
